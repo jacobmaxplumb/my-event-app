@@ -10,14 +10,17 @@ import { EventObject } from '../models/event-object';
 })
 export class EventService {
 
-  private events: EventObject[];
+  events: EventObject[];
 
   constructor(private http: HttpClient) { }
 
   public callEventApi(formData: any): Observable<EventResponse> {
+    console.log(formData);
     const parameters = {
       page: formData.page ? formData.page : 1,
       size: formData.size ? formData.size : 25,
+      sort: formData.sort ? formData.sort : 'distance,asc',
+      latlong: formData.latlong ? formData.latlong : '',
       apikey: environment.apikey
     };
     return this.http.get<EventResponse>('https://app.ticketmaster.com/discovery/v2/events', {params: parameters});
