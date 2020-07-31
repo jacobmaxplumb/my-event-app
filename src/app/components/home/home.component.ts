@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   getEvents(): EventObject[] {
-    return this.eventService.events;
+    return this.eventService.getEvents();
   }
 
 }

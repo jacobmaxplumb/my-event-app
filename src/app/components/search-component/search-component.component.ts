@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { EventService } from 'src/app/services/event.service';
+import { EventResponse } from 'src/app/models/event-response';
+import { EventRequestWithoutApiKey } from 'src/app/models/event-request-without-api-key';
 
 @Component({
   selector: 'app-search-component',
@@ -7,9 +11,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
   }
+
+  /**
+   * @param  {NgForm} formData
+   * Calls event service and sets the
+   * events service's property events
+   * to a new array of events
+   */
+  searchFormSubmit(formData: NgForm) {
+    const params: EventRequestWithoutApiKey = {
+      keyword: formData.value.keyword,
+      latlong: '',
+      city: formData.value.city
+    };
+    this.eventService.setParameters(params);
+    this.eventService.callEventApi().subscribe((response: EventResponse) => {
+      this.eventService.setEvents(response);
+
+    });
+  }
+
+
 
 }

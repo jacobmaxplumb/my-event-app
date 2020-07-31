@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { EventService } from './services/event.service';
 import { EventResponse } from './models/event-response';
+import { EventRequestWithoutApiKey } from './models/event-request-without-api-key';
 
 @Component({
   selector: 'app-root',
@@ -22,28 +23,44 @@ export class AppComponent {
       this.options
     );
   }
-
+  /**
+   * @param  {Error} error
+   * when there is an error getting the geolocation
+   */
   onError(error: Error) {
     console.log(error.message);
   }
-
+  /**
+   * @param  {Position} position
+   * When the users postition is gotten this
+   * goes ahead and calls a get events method
+   */
   onSuccess(position: Position) {
-    const parameters = {
-      latlong: `${position.coords.latitude},${position.coords.longitude}`
+    const parameters: EventRequestWithoutApiKey = {
+      latlong: `${position.coords.latitude},${position.coords.longitude}`,
+      city: '',
+      keyword: ''
     };
-    this.eventService.callEventApi(parameters).subscribe(
+    this.eventService.setParameters(parameters);
+    this.eventService.callEventApi().subscribe(
       this.onEventCallSuccess.bind(this),
       this.onEventCallError.bind(this)
     );
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
   }
-
+  /**
+   * @param  {EventResponse} response
+   * sets the events when successfully
+   * gotten from the api
+   */
   onEventCallSuccess(response: EventResponse) {
-    console.log(response);
-    this.eventService.events = response._embedded.events;
+    this.eventService.setEvents(response);
   }
-
+  /**
+   * @param  {Error} error
+   * does something with the error when
+   * there is an error getting data 
+   * from the api
+   */
   onEventCallError(error: Error) {
     console.log(error.message);
   }
