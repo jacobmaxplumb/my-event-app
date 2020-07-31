@@ -13,13 +13,15 @@ import { EventRequest } from '../models/event-request';
 export class EventService {
 
   private totalPages: number;
+  private totalElements: number;
   private events: EventObject[];
   private parameters: EventRequest = {
     apikey: environment.apikey,
     keyword: '',
     latlong: '',
     city: '',
-    page: 1
+    page: 1,
+    size: 25
   };
 
   constructor(private http: HttpClient) { }
@@ -35,7 +37,9 @@ export class EventService {
   }
 
   public setEvents(eventResponse: EventResponse) {
+    console.log(eventResponse);
     this.totalPages = eventResponse.page.totalPages;
+    this.totalElements = eventResponse.page.totalElements;
     if (eventResponse._embedded) {
       this.events = eventResponse._embedded.events;
     } else {
@@ -49,11 +53,27 @@ export class EventService {
     this.parameters.keyword = request.keyword;
   }
 
-  public setTotalPages(page: number) {
-    this.totalPages = page;
-  }
-
   public getTotalPages(): number {
     return this.totalPages;
+  }
+
+  public getPageSize() {
+    return this.parameters.size;
+  }
+
+  public setPageSize(pageSize: number) {
+    this.parameters.size = pageSize;
+  }
+
+  public setPageNumber(pageNumber: number) {
+    this.parameters.page = pageNumber;
+  }
+
+  public getTotalElements(): number {
+    return this.totalElements;
+  }
+
+  public getPageNumberTimesSize(): number {
+    return (this.parameters.page - 1) * this.parameters.size;
   }
 }

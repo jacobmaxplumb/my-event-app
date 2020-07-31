@@ -4,4 +4,5 @@ export interface EventRequest {
   latlong: string;
   apikey: string;
   page: number;
+  size: number;
 }

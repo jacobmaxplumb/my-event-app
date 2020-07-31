@@ -17,4 +17,7 @@ export class HomeComponent implements OnInit {
     return this.eventService.getEvents();
   }
 
+  getPageNumber(i) {
+    return this.eventService.getPageNumberTimesSize() + i + 1;
+  }
 }
