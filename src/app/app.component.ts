@@ -23,6 +23,7 @@ export class AppComponent {
       this.options
     );
   }
+
   /**
    * @param  {Error} error
    * when there is an error getting the geolocation
@@ -30,6 +31,7 @@ export class AppComponent {
   onError(error: Error) {
     console.log(error.message);
   }
+
   /**
    * @param  {Position} position
    * When the users postition is gotten this
@@ -42,26 +44,6 @@ export class AppComponent {
       keyword: ''
     };
     this.eventService.setParameters(parameters);
-    this.eventService.callEventApi().subscribe(
-      this.onEventCallSuccess.bind(this),
-      this.onEventCallError.bind(this)
-    );
-  }
-  /**
-   * @param  {EventResponse} response
-   * sets the events when successfully
-   * gotten from the api
-   */
-  onEventCallSuccess(response: EventResponse) {
-    this.eventService.setEvents(response);
-  }
-  /**
-   * @param  {Error} error
-   * does something with the error when
-   * there is an error getting data 
-   * from the api
-   */
-  onEventCallError(error: Error) {
-    console.log(error.message);
+    this.eventService.callToApiAndSaveResults();
   }
 }

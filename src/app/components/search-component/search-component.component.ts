@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EventService } from 'src/app/services/event.service';
 import { EventResponse } from 'src/app/models/event-response';
 import { EventRequestWithoutApiKey } from 'src/app/models/event-request-without-api-key';
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-search-component',
@@ -10,6 +11,8 @@ import { EventRequestWithoutApiKey } from 'src/app/models/event-request-without-
   styleUrls: ['./search-component.component.css']
 })
 export class SearchComponentComponent implements OnInit {
+
+  @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(private eventService: EventService) { }
 
@@ -29,10 +32,7 @@ export class SearchComponentComponent implements OnInit {
       city: formData.value.city
     };
     this.eventService.setParameters(params);
-    this.eventService.callEventApi().subscribe((response: EventResponse) => {
-      this.eventService.setEvents(response);
-
-    });
+    this.eventService.callToApiAndSaveResults();
   }
 
 

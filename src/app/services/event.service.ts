@@ -12,7 +12,6 @@ import { EventRequest } from '../models/event-request';
 })
 export class EventService {
 
-  private totalPages: number;
   private totalElements: number;
   private events: EventObject[];
   private parameters: EventRequest = {
@@ -32,13 +31,20 @@ export class EventService {
     return this.http.get<EventResponse>('https://app.ticketmaster.com/discovery/v2/events', {params: parameters});
   }
 
+  public callEventApiSuccess(response: EventResponse) {
+    this.setEvents(response);
+  }
+
+  public callEventApiError(error: Error) {
+    console.log(error);
+  }
+
   public getEvents(): EventObject[] {
     return this.events;
   }
 
   public setEvents(eventResponse: EventResponse) {
     console.log(eventResponse);
-    this.totalPages = eventResponse.page.totalPages;
     this.totalElements = eventResponse.page.totalElements;
     if (eventResponse._embedded) {
       this.events = eventResponse._embedded.events;
@@ -51,10 +57,6 @@ export class EventService {
     this.parameters.city = request.city;
     this.parameters.latlong = request.latlong;
     this.parameters.keyword = request.keyword;
-  }
-
-  public getTotalPages(): number {
-    return this.totalPages;
   }
 
   public getPageSize() {
@@ -73,7 +75,10 @@ export class EventService {
     return this.totalElements;
   }
 
-  public getPageNumberTimesSize(): number {
-    return (this.parameters.page - 1) * this.parameters.size;
+  public callToApiAndSaveResults() {
+    this.callEventApi().subscribe(
+      this.callEventApiSuccess.bind(this),
+      this.callEventApiError.bind(this)
+    );
   }
 }

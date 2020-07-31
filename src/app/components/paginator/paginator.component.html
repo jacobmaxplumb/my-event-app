@@ -1,2 +1,2 @@
-<mat-paginator [length]="getTotalElement()" [pageSize]="getInitPageSize()" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChange($event)">
+<mat-paginator #paginator [length]="getTotalElement()" [pageSize]="getInitPageSize()" [pageSizeOptions]="[5, 10, 25, 100]" (page)="pageChange($event)">
 </mat-paginator>

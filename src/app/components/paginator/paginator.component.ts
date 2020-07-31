@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
-import { EventResponse } from 'src/app/models/event-response';
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-paginator',
@@ -17,9 +17,7 @@ export class PaginatorComponent implements OnInit {
   pageChange(event) {
     this.eventsService.setPageSize(event.pageSize);
     this.eventsService.setPageNumber(event.pageIndex + 1);
-    this.eventsService.callEventApi().subscribe((response: EventResponse) => {
-      this.eventsService.setEvents(response);
-    })
+    this.eventsService.callToApiAndSaveResults();
   }
 
   getTotalElement(): number {
