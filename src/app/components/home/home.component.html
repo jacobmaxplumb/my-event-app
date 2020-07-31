@@ -1,5 +1,5 @@
-<app-search-component></app-search-component>
-<div *ngFor="let event of getEvents(); let i = index">
-    {{event.name}}
+<div class="container">
+    <app-search-component></app-search-component>
+    <app-event-list></app-event-list>
+    <app-paginator></app-paginator>
 </div>
-<app-paginator></app-paginator>

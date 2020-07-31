@@ -1,9 +1,11 @@
-<form class="tp-container" #searchForm="ngForm" (submit)="searchFormSubmit(searchForm)">
-  <mat-form-field appearance="standard">
-     <input name="keyword" ngModel matInput placeholder="Search">
-  </mat-form-field>
-  <mat-form-field appearance="standard">
-    <input name="city" ngModel matInput placeholder="City">
-  </mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Submit</button>
+<form #searchForm="ngForm" (submit)="searchFormSubmit(searchForm)">
+    <mat-form-field class="col-10 offset-1" appearance="standard">
+        <input name="keyword" ngModel matInput placeholder="Search">
+    </mat-form-field>
+    <mat-form-field class="col-10 offset-1" appearance="standard">
+        <input name="city" ngModel matInput placeholder="City">
+    </mat-form-field>
+    <div class="col-10 offset-1">
+        <button class="col-12" mat-raised-button color="primary" type="submit">Submit</button>
+    </div>
 </form>

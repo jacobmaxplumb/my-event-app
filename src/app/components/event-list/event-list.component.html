@@ -1,0 +1,20 @@
+<div class="event-list row justify-content-center align-items-center">
+    <div style="padding: 0" class="col-xs-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let event of getEvents()">
+        <mat-card class="event-card">
+            <mat-card-header>
+                <mat-card-title>{{event.name}}</mat-card-title>
+                <mat-card-subtitle>{{event.classifications[0].genre.name}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="event.images[0].url">
+            <mat-card-content>
+                <div>Date: {{ event.dates.start.localDate | date}}</div>
+                <div>Time: {{ event.dates.start.localTime | time }}</div>
+                <a [href]="event.url">More Info</a>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

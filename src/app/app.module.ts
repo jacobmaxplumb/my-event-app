@@ -13,16 +13,22 @@ import {
   MatIconModule,
   MatFormFieldModule,
   MatButtonModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatCardModule,
+  MatGridListModule
 } from '@angular/material';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { EventListComponent } from './components/event-list/event-list.component';
+import { TimePipe } from './pipes/time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SearchComponentComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    EventListComponent,
+    TimePipe
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,9 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     MatIconModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

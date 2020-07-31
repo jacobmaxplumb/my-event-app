@@ -1,0 +1,12 @@
+.event-list {
+    margin-top: 20px;
+}
+
+.event-card {
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.example-header-image {
+    background-size: cover;
+}
